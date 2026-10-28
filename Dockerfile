@@ -33,7 +33,11 @@ ARG TARGETPLATFORM
 ARG NSPR_URL
 COPY --from=xx / /
 COPY src/nspr /build
-RUN /build/build.sh "$NSPR_URL"
+
+# Fix permissions before executing the build script.
+RUN chmod +x /build/build.sh \
+    && /build/build.sh "$NSPR_URL"
+
 RUN xx-verify \
     /tmp/nspr-install/usr/lib/libnspr4.so \
     /tmp/nspr-install/usr/lib/libplc4.so \
