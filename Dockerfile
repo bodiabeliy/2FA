@@ -128,6 +128,26 @@ ENV \
     FF_KIOSK=0 \
     FF_CUSTOM_ARGS=
 
+# Render-specific settings.
+# Render sends traffic to the port in $PORT (default 10000).
+ENV WEB_LISTENING_PORT=10000 \
+    SECURE_CONNECTION=0 \
+    VNC_LISTENING_PORT=-1
+
+# Login page. Set WEB_AUTHENTICATION_USERNAME and WEB_AUTHENTICATION_PASSWORD
+# in the Render dashboard (Environment), NOT in this file.
+# ALLOW_INSECURE is needed because SECURE_CONNECTION=0; traffic from the
+# browser to Render is still HTTPS.
+ENV WEB_AUTHENTICATION=1 \
+    WEB_AUTHENTICATION_ALLOW_INSECURE=1
+
+# Screen size and behaviour.
+ENV DISPLAY_WIDTH=1366 \
+    DISPLAY_HEIGHT=768 \
+    KEEP_APP_RUNNING=1
+
+EXPOSE 10000
+
 # Metadata.
 LABEL \
       org.label-schema.name="firefox" \
